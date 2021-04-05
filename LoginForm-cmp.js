@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-import { AutoForm } from "ezwn-react-native-data-mng-lang/AutoForm-cmp";
+import { StructForm } from "ezwn-react-native-data-schema/StructForm-cmp";
 import { TextButton } from "ezwn-ux-native/app-components/TextButton-cmp";
-import { LoginFormProvider, useLoginForm } from "lib/ezwn-react-native-persist-common/LoginForm-ctx";
+import { LoginFormProvider, useLoginForm } from "./LoginForm-ctx";
 import { Padded } from "ezwn-ux-native/layouts/Padded-cmp";
 
 export const LoginForm = ({ onSuccess, onRegister, loginUrl }) => {
@@ -17,19 +17,15 @@ export const LoginForm = ({ onSuccess, onRegister, loginUrl }) => {
   );
 };
 
-const loginSchema = {
-  structs: {
-    LoginForm: {
-      props: {
-        userName: {
-          id: "userName",
-          type: { primitive: "text", size: [1, 64] }
-        },
-        password: {
-          id: "password",
-          type: { primitive: "password", size: [1, 64] }
-        }
-      }
+const loginForm = {
+  props: {
+    userName: {
+      id: "userName",
+      type: { primitive: "text", size: [1, 64] }
+    },
+    password: {
+      id: "password",
+      type: { primitive: "password", size: [1, 64] }
     }
   }
 };
@@ -52,7 +48,7 @@ const LoginFormInContext = () => {
 
   return <View>
     {failedOnce && <Padded><Text style={{ color: "red" }}>Login failed. Try again.</Text></Padded>}
-    <AutoForm schema={loginSchema} data={loginFormData} updateData={updateLoginFormData} onValidityChange={setValid} structKey="LoginForm" />
+    <StructForm struct={loginForm} data={loginFormData} updateData={updateLoginFormData} onValidityChange={setValid} />
     <Padded>
       <TextButton alt={false} onPress={onLoginButtonPressed} enabled={valid}>
         Login

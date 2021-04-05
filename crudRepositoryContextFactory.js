@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useState, createContext } from "react";
 import { useHistory } from "react-router";
 import crudBackendClientFactory from "./crudBackendClientFactory";
-import { useSession } from "lib/ezwn-react-native-persist-common/Session-ctx";
+import { useSession } from "./Session-ctx";
 
 export default (endpoint, createNew) => {
 
